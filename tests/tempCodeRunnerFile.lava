@@ -1,2 +1,0 @@
-okay there is one more change if i write sigma/tweet x gimme("Enter the number") 
-then the input would be taken as either number or string accordingly. the list is dynamic so no need for explicit declaration there but yes there is apparently a new keyword where tweet = string apparently can be used as of now focus on the gimme type cast, if possible add the functionality to interpret sigma x as int x (like before) and tweet x as string, make the necessary changes properly
