@@ -43,7 +43,7 @@ if __name__ == "__main__":
     args = sys.argv[1:]
 
     if not args:
-        print("Usage: python bs.py [-token] [-ast] [-shell] <file.bs>")
+        print("Usage: bs [-token] [-ast] [-shell] <file.bs>")
         sys.exit(1)
 
     if "-shell" in args:

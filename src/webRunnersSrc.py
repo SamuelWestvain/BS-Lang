@@ -1,4 +1,3 @@
-# gradio_interface.py
 import sys
 import io
 import gradio as gr
@@ -8,8 +7,26 @@ from lexer import tokenize
 from parser import parse
 from interpreter import run, Environment
 
-def run_lava_code(code, show_tokens=False, show_ast=False):
+class InputManager:
+    def __init__(self):
+        self.input_queue = []
+        self.current_input = None
+    
+    def add_input(self, value):
+        self.input_queue.append(value)
+    
+    def get_input(self, prompt=""):
+        if self.input_queue:
+            return self.input_queue.pop(0)
+        raise RuntimeError("No input available in queue")
+
+input_manager = InputManager()
+
+def run_lava_code(code, show_tokens=False, show_ast=False, *inputs):
     """Execute LAVA code and capture output/errors"""
+    # Clear previous inputs and add new ones
+    input_manager.input_queue = list(inputs)
+    
     env = Environment()
     old_stdout = sys.stdout
     old_stderr = sys.stderr
@@ -54,137 +71,85 @@ def run_lava_code(code, show_tokens=False, show_ast=False):
 
 def download_code(code):
     """Create a temporary .lava file for download"""
-    # Create a temporary file with .lava extension
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".lava")
     try:
-        # Write code to the temporary file
         with open(temp_file.name, 'w', encoding='utf-8') as f:
             f.write(code)
-        
-        # Return the file path for download
         return temp_file.name
     except Exception as e:
-        # Clean up if error occurs
         os.unlink(temp_file.name)
         raise e
 
-# Predefined examples
+# Update the interpreter.py to use input_manager
+# Add this to your interpreter.py (in the eval_expression function)
+"""
+elif etype == 'CALL':
+    func_name = expr[1]
+    args = expr[2]
+    if func_name == 'gimme':
+        if not args:
+            return input_manager.get_input()
+        prompt = eval_expression(args[0], env)
+        return input_manager.get_input(prompt)
+    return call_function(func_name, args, env)
+"""
+
 EXAMPLES = [
+    {
+        "name": "Basic Input Example",
+        "code": """sigma name = gimme("Enter your name: ")
+hawk_tuah("Hello, " + name)"""
+    },
     {
         "name": "Complex Function Example",
         "code": """cook gyatt() {
   hawk_tuah("Hello World")
   hawk_tuah(1 + 2)
-  sigma a = 10
-  sigma b = 20 - 15
+  sigma a = gimme("Enter a number: ")
+  sigma b = gimme("Enter another number: ")
   yap i till 0 to 3 {
     hawk_tuah(i)
-  }
-  sigma i = 0
-  flex i < 3 {
-    hawk_tuah(i)
-    sigma i = i + 1
   }
   rizz_check a > b {
     yeet a
   } nah_fam {
     yeet b
   }
-  skibidi
 }
 hawk_tuah(gyatt())"""
     },
     {
-        "name": "Array Functionalities",
-        "code": """
-        squad x = [10, 20, 30, 40, 50]
-squad arr = x
+        "name": "Calculator",
+        "code": """sigma a = gimme("Enter first number: ")
+sigma b = gimme("Enter second number: ")
+sigma op = gimme("Enter operation (+, -, *, /): ")
 
-on_read{// Access last element}
-hawk_tuah(arr[-1])  
-
-on_read{// Access second last element}
-hawk_tuah(arr[-2])  
-
-on_read{// Assign using negative index}
-arr[-1] = 99
-hawk_tuah(arr[4])   
-hawk_tuah(arr)   
-        """
-    },
-    {
-        "name": "Factorial Calculator",
-        "code": """cook factorial(){
-    sigma n = 5
-    sigma product = 1
-    flex n > 0{
-        sigma product = product * n
-        sigma n = n - 1
-    }
-    yeet product
-}
-
-hawk_tuah(factorial())"""
+rizz_check op == "+" {
+    hawk_tuah(a + b)
+} nah_fam rizz_check op == "-" {
+    hawk_tuah(a - b)
+} nah_fam rizz_check op == "*" {
+    hawk_tuah(a * b)
+} nah_fam rizz_check op == "/" {
+    hawk_tuah(a / b)
+} nah_fam {
+    hawk_tuah("Invalid operation")
+}"""
     }
 ]
 
-# Custom CSS with updated colors
 custom_css = """
-.gradio-container {
-    background: linear-gradient(135deg, #ff9966, #ff5e62);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.dark .gradio-container {
-    background: linear-gradient(135deg, #2c3e50, #4a235a);
-}
-#code-input {
-    font-family: 'Fira Code', monospace !important;
-    font-size: 14px !important;
-}
-.output-text {
-    font-family: monospace;
-    white-space: pre;
-}
-.example-card {
-    border: 1px solid #ff9966;
-    border-radius: 8px;
-    padding: 12px;
-    margin: 10px 0;
-    background: rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-}
-.example-card:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-.example-name {
-    font-weight: bold;
-    color: #1e88e5; /* Changed to blue */
-    margin-bottom: 8px;
-}
-.example-code {
-    font-family: 'Fira Code', monospace;
-    font-size: 12px;
-    white-space: pre;
-    background: rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 4px;
-    max-height: 200px;
-    overflow: auto;
-}
-.option-group {
+/* ... (keep your existing CSS) ... */
+.input-group {
     background: rgba(255, 255, 255, 0.15);
     padding: 12px;
     border-radius: 8px;
     margin: 10px 0;
 }
-.option-title {
+.input-title {
     font-weight: bold;
     margin-bottom: 8px;
-    color: #43a047; /* Changed to green */
-}
-.download-btn {
-    background: linear-gradient(135deg, #1e88e5, #0d47a1) !important;
-    color: white !important;
+    color: #ff9800;
 }
 """
 
@@ -211,12 +176,14 @@ with gr.Blocks(css=custom_css, title="🔥 LAVA Playground") as app:
                 clear_btn = gr.Button("Clear Output")
                 download_btn = gr.Button("Download .lava", elem_classes="download-btn")
             
-            # Debug options with new color
             with gr.Group(elem_classes="option-group"):
                 gr.Markdown("<div class='option-title'>Debug Options</div>")
                 with gr.Row():
                     show_tokens = gr.Checkbox(label="Show Tokens", value=False)
                     show_ast = gr.Checkbox(label="Show AST", value=False)
+            
+            # Dynamic input fields will be added here by the analysis
+            input_fields = []
             
             output = gr.Textbox(
                 label="Execution Output",
@@ -231,8 +198,6 @@ with gr.Blocks(css=custom_css, title="🔥 LAVA Playground") as app:
                     gr.Markdown(f"""
                     <div class="example-name">{example['name']}</div>
                     """)
-                    
-                    # Use Textbox for proper code formatting
                     gr.Textbox(
                         value=example['code'],
                         lines=min(10, example['code'].count('\n') + 1),
@@ -240,7 +205,6 @@ with gr.Blocks(css=custom_css, title="🔥 LAVA Playground") as app:
                         elem_classes="example-code",
                         show_label=False
                     )
-                    
                     example_btn = gr.Button(f"Load: {example['name']}", size="sm")
                     example_btn.click(
                         fn=lambda code=example['code']: code,
@@ -248,9 +212,56 @@ with gr.Blocks(css=custom_css, title="🔥 LAVA Playground") as app:
                         outputs=code_input
                     )
     
+    def analyze_code(code):
+        """Analyze code to determine needed inputs"""
+        try:
+            tokens = tokenize(code)
+            ast = parse(tokens)
+            input_count = count_inputs(ast)
+            
+            # Create input components
+            inputs = []
+            for i in range(input_count):
+                inputs.append(gr.Textbox(label=f"Input {i+1}", visible=True))
+            
+            # Pad with hidden inputs if needed
+            while len(inputs) < 5:  # Show at least 5 input fields
+                inputs.append(gr.Textbox(visible=False))
+            
+            return inputs
+        except:
+            # Return default hidden inputs if analysis fails
+            return [gr.Textbox(visible=False) for _ in range(5)]
+    
+    def count_inputs(ast):
+        """Count gimme calls in AST"""
+        count = 0
+        for node in ast:
+            count += _count_inputs_in_node(node)
+        return count
+    
+    def _count_inputs_in_node(node):
+        if not isinstance(node, (list, tuple)):
+            return 0
+        
+        count = 0
+        if node[0] == 'CALL' and node[1] == 'gimme':
+            count += 1
+        
+        for item in node:
+            count += _count_inputs_in_node(item)
+        
+        return count
+    
+    code_input.change(
+        fn=analyze_code,
+        inputs=code_input,
+        outputs=[input_fields]
+    )
+    
     run_btn.click(
         fn=run_lava_code,
-        inputs=[code_input, show_tokens, show_ast],
+        inputs=[code_input, show_tokens, show_ast] + input_fields,
         outputs=output
     )
     
@@ -267,4 +278,4 @@ with gr.Blocks(css=custom_css, title="🔥 LAVA Playground") as app:
     )
 
 if __name__ == "__main__":
-    app.launch(share = True)
+    app.launch(share=False)
