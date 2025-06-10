@@ -1,0 +1,19 @@
+sigma n = 5
+
+cook gyatt(){
+    rizz_check (n>0){
+        hawk_tuah(n)
+        n = n - 1
+        gyatt()
+    }
+    nah_fam{
+        hawk_tuah("End")
+        skibidi
+    }
+}
+
+gyatt()
+gyatt()
+gyatt()
+
+on_read{we need sus support and null supports and functional passing because important, array<int><char>, after that we can end the entirety}

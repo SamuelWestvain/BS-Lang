@@ -1,0 +1,21 @@
+cook gyatt() {
+  hawk_tuah("Hello World")
+  hawk_tuah(1 + 2)
+  sigma a = 10
+  sigma b = 20 - 15
+  yap i till 0 to 3 {
+    hawk_tuah(i)
+  }
+  sigma i = 0
+  flex i < 3 {
+    hawk_tuah(i)
+    i = i + 1
+  }
+  rizz_check a > b {
+    yeet a
+  } nah_fam {
+    yeet b
+  }
+  skibidi
+}
+hawk_tuah(gyatt())

@@ -1,0 +1,11 @@
+cook factorial(){
+    sigma n = 5
+    sigma product = 1
+    flex n > 0{
+        product = product * n
+        n = n - 1
+    }
+    yeet product
+}
+
+hawk_tuah(factorial())

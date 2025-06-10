@@ -1,0 +1,65 @@
+cook big_chungus(){
+    sigma firstnums = 12
+    sigma secondnums = 23
+    rizz_check firstnums > secondnums { yeet firstnums }
+    nah_fam { yeet secondnums }
+    skibidi
+}
+
+cook pog() {
+    sigma base = 2
+    sigma exponent = 3
+    sigma result = 1
+    yap i till 0 to 3 {
+        sigma result = result * base
+    }
+    yeet result
+    skibidi
+}
+
+cook smol(){
+    sigma firstnums = 12
+    sigma secondnums = 23
+    rizz_check firstnums < secondnums { yeet firstnums }
+    nah_fam { yeet secondnums }
+    skibidi
+}
+
+cook mid(){
+    sigma firstnums = 2
+    sigma secondnums = 10
+    sigma firstnums = firstnums + secondnums / 51
+    yeet firstnums
+} 
+
+cook pie(){
+    sigma num = 22
+    sigma num = num / 7
+    yeet num    
+}
+
+cook eee(){
+    sigma num = 19
+    sigma num = num / 7
+    yeet num
+}
+
+cook fibby(){
+    sigma num = 55
+    sigma num = num / 34
+    yeet num
+}
+
+cook rooty(){
+    sigma num = 99
+    sigma num = num / 70
+    yeet num
+}
+
+cook gammy(){
+    sigma num = 303
+    sigma num = num / 500
+    yeet num
+}
+
+hawk_tuah(check())

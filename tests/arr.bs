@@ -1,0 +1,20 @@
+squad x = [10, "20", 30, 40, 50]
+squad arr = x
+
+on_read{// Access last element}
+hawk_tuah(arr[-1]+2)  
+
+on_read{// Access second last element}
+hawk_tuah(arr[-2]+2)  
+
+on_read{// Assign using negative index}
+sigma y = gimme("Enter the number: ")
+arr[-1] = y
+hawk_tuah(arr[4]*2)   
+
+tweet input_str = gimme("Enter a number: ")
+tweet num = input_str
+hawk_tuah("Double: " + (num * 2))
+
+hawk_tuah(arr)
+hawk_tuah(x)

@@ -1,0 +1,9 @@
+sigma n = 1
+
+cook gyatt(){
+    yap i till 0 to n{
+        hawk_tuah(i)
+    }
+}
+
+gyatt()

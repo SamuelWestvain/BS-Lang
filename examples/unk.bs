@@ -1,0 +1,11 @@
+tweet name = gimme("Enter your name: ")
+hawk_tuah("Hello, " + name)  
+
+sigma age = gimme("Enter your age: ")
+hawk_tuah(age * 2)  
+
+sigma count = 5
+count = "10"
+hawk_tuah(count * 2) 
+
+on_read{type casting in a dynamic fashion}
