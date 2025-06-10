@@ -2,8 +2,9 @@
 
 **BSLang** is a Gen-Z inspired toy programming language designed to be expressive, fun, and functionally capable. With meme-driven syntax and semantics, it aims to make programming both entertaining and educational.
 
+<center>
 ![BSLANGUAGE Logo](logo-bs-lang-main.png)
-
+</center>
 ---
 
 ## Installation
