@@ -2,7 +2,7 @@
 
 **BSLang** is a Gen-Z inspired toy programming language designed to be expressive, fun, and functionally capable. With meme-driven syntax and semantics, it aims to make programming both entertaining and educational.
 
-![BSLANGUAGE Logo](logo-bs-lang.png)
+![BSLANGUAGE Logo](logo-bs-lang-main.png)
 
 ---
 
@@ -11,7 +11,7 @@
 Clone github repo in your local system
 
 ```bash
-
+git clone https://github.com/AnomitraSarkar/BS-Lang.git
 ```
 
 Set Path to environment variables (relative to installation path)
@@ -101,10 +101,9 @@ So yes — we checked the nerdy boxes ✅ but if you try to build Skynet with it
 - Standard input/output wrappers
 - Time and date support (so we know when to `slay`)
 
-### ❗ Arrays and Memory Management
+### ❗ Arrays and Memory Extended Functionalities
 
-- Array literals: `sigma arr = [1, 2, 3]`
-- Indexing: `arr[0] = 5`
+- Hashmaps and Set etc
 - Dynamic arrays and nested structures
 - `len(arr)` support and iteration
 
