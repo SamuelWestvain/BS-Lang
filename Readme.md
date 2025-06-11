@@ -200,7 +200,7 @@ BSLang is totally open source — because gatekeeping isn’t slay. Contribution
 - Got a feature idea? Let’s manifest it together.
 - Wanna vibe with the code? Fork it, slay it, PR it.
 
-> "Delulu is for the community, by the community — let's go full frfr." 
+> "Delulu is for the community, by the community, to the community — let's go full frfr." 
 > – *BS Scrolls, Chapter 3: Verse 11*
 
 ---
@@ -209,5 +209,7 @@ BSLang is totally open source — because gatekeeping isn’t slay. Contribution
 
 MIT License — free to slay, remix, and ship.
 
-> "Sometimes you gotta go delulu to go Turing complete byotch." 
+> "Sometimes you gotta cook to go Turing complete byotch." 
 > – *BS Scrolls, Chapter 6: Verse 9*
+
+<b> PS: If you encounter an error — To bad, So sad! </b>

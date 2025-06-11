@@ -233,10 +233,10 @@ hawk_tuah("Double: " + (num * 2))
 
 ## 🙏 Final Word
 
-BS-Lang isn't just about syntax. It's about **expression**.
-Where other languages crash, **BS-Lang paniks**.
-Where others loop, **BS-Lang flexes**.
-Where others return, **BS-Lang yeets**.
+BS-Lang isn't just about syntax. It's about **expression**. <br>
+Where other languages crash, **BS-Lang paniks**. <br>
+Where others loop, **BS-Lang flexes**. <br>
+Where others return, **BS-Lang yeets**. <br>
 
 > Code not just with logic, but with **vibes**.
 > – *BS Scrolls, Chapter 8: Verse 6*
