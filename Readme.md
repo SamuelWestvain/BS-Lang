@@ -64,7 +64,7 @@ bs
 bs
 ```
 
-<b><i>Select the executable distribution according to the platform and version : bs-<version>-<platform>-<architecture> </i></b>
+<b><i>Select the executable distribution according to the platform and version : bs-[version]-[platform]-[architecture] </i></b>
 
 ### Mac (Coming Soon...)
 
