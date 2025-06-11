@@ -70,13 +70,13 @@ bs
 bs
 ```
 
-<b><i>Select the executable distribution according to the platform and version : bs-[version]-[platform]-[architecture] </i></b>
+<b><i>Select the executable distribution according to the platform and version : `bs-[version]-[platform]-[architecture]` </i></b>
 
 ### Mac (Coming Soon...)
 
 ## Working
 
-BS-Lang\examples contain example programs to test and run with, refer below in the docs to get used to the programming language.
+`BS-Lang\examples` contain example programs to test and run with, refer below in the docs to get used to the programming language.
 
 To check if working or not
 
@@ -161,14 +161,11 @@ So yes — we checked the nerdy boxes ✅ but if you try to build Skynet with it
 ### ❗ First-Class Functions
 
 - Passing functions as arguments (yes, like actual functions 😭)
-- Returning functions
 - Anonymous functions (bonus points for ✨ aesthetic syntax ✨)
 
 ### ❗ Input/Output
 
-- Read user input (`gimme()`) or equivalent
 - File I/O (optional but 🔥)
-- Proper STDIN/STDOUT stream handling
 
 ### ❗ Interpreter Runtime Buff
 

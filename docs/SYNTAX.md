@@ -14,7 +14,7 @@ We’re diving deep into the sauce of coding lingo, breaking it down so it’s b
 
 Used to define a function, like `def` or `function`.
 
-```bs
+```python
 cook say_hello() {
     hawk_tuah("Hello World")
     skibidi
@@ -27,7 +27,7 @@ cook say_hello() {
 
 Declares a variable. BS-Lang is dynamically typed.
 
-```bs
+```python
 sigma n = 5
 ```
 
@@ -37,7 +37,7 @@ You can also reassign it to another type later.
 
 Like `sigma`, but commonly used with input strings or to reassign values.
 
-```bs
+```python
 tweet name = gimme("Enter your name: ")
 hawk_tuah("Hello, " + name)
 ```
@@ -46,7 +46,7 @@ hawk_tuah("Hello, " + name)
 
 Loops while a condition is true.
 
-```bs
+```python
 sigma i = 0
 flex i < 3 {
     hawk_tuah(i)
@@ -58,7 +58,7 @@ flex i < 3 {
 
 A shorthand to run something from a start to end value.
 
-```bs
+```python
 yap i till 0 to 3 {
     hawk_tuah(i)
 }
@@ -68,7 +68,7 @@ yap i till 0 to 3 {
 
 Like `if` and `else`.
 
-```bs
+```python
 rizz_check n > 10 {
     hawk_tuah("Big number")
 } nah_fam {
@@ -80,7 +80,7 @@ rizz_check n > 10 {
 
 Returns a value from a function.
 
-```bs
+```python
 cook double(n) {
     yeet n * 2
 }
@@ -90,7 +90,7 @@ cook double(n) {
 
 Outputs text or values to the console.
 
-```bs
+```python
 hawk_tuah("Printing this vibe")
 ```
 
@@ -98,7 +98,7 @@ hawk_tuah("Printing this vibe")
 
 Takes string input from the user.
 
-```bs
+```python
 tweet fav = gimme("What’s your favorite food? ")
 hawk_tuah(fav)
 ```
@@ -107,7 +107,7 @@ hawk_tuah(fav)
 
 Explicitly ends the current block or function.
 
-```bs
+```python
 cook out() {
     hawk_tuah("Done!")
     skibidi
@@ -118,7 +118,7 @@ cook out() {
 
 Used to handle errors (WIP depending on implementation).
 
-```bs
+```python
 sus {
     sigma risky = 10 / 0
 } panik {
@@ -130,14 +130,14 @@ sus {
 
 Declares an array-like structure.
 
-```bs
+```python
 squad vibes = ["slay", "yeet", "based"]
 hawk_tuah(vibes[0])
 ```
 
 Supports negative indexing:
 
-```bs
+```python
 hawk_tuah(vibes[-1]) // last element
 ```
 
@@ -145,7 +145,7 @@ hawk_tuah(vibes[-1]) // last element
 
 Anything within is a comment and ignored during execution.
 
-```bs
+```python
 on_read{This explains the loop below}
 flex i < 5 {
     hawk_tuah(i)
@@ -159,7 +159,7 @@ flex i < 5 {
 
 ### 🧮 Factorial Function
 
-```bs
+```python
 cook factorial(){
     sigma n = 5
     sigma product = 1
@@ -174,7 +174,7 @@ hawk_tuah(factorial())
 
 ### 🙋 User Input
 
-```bs
+```python
 tweet name = gimme("Enter your name: ")
 hawk_tuah("Hello, " + name)
 
@@ -184,7 +184,7 @@ hawk_tuah(age * 2)
 
 ### 🌀 Dynamic Typing
 
-```bs
+```python
 sigma count = 5
 count = "10"
 hawk_tuah(count * 2)
@@ -192,7 +192,7 @@ hawk_tuah(count * 2)
 
 ### 🧬 Recursion
 
-```bs
+```python
 sigma n = 5
 cook gyatt(){
     rizz_check (n > 0){
@@ -209,7 +209,7 @@ gyatt()
 
 ### 📦 Lists (SQUAD)
 
-```bs
+```python
 squad x = [10, "20", 30, 40, 50]
 squad arr = x
 hawk_tuah(arr[-1]+2)
@@ -221,7 +221,7 @@ hawk_tuah(arr[4]*2)
 
 ### 🔤 String + Numeric Casting
 
-```bs
+```python
 tweet input_str = gimme("Enter a number: ")
 tweet num = input_str
 hawk_tuah("Double: " + (num * 2))
