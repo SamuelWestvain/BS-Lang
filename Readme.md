@@ -28,7 +28,7 @@ chmod +x bs
 3. **(Optional) Rename it to `bs`:**
 
 ```bash
-mv bs bs
+mv bs-v.*.*.*-linux-x64 bs
 ```
 
 4. **Move it to a system path:**
@@ -66,19 +66,7 @@ bs
 
 <b><i>Select the executable distribution according to the platform and version : bs-<version>-<platform>-<architecture> </i></b>
 
-### gotta segregate for linux windows and mac(comming soon)
-
-Set Path to environment variables (relative to installation path)
-
-```bash
-BS-Lang\SCRIPTS\
-```
-
-To check if working or not
-
-```bash
-bs
-```
+### Mac (Coming Soon...)
 
 ## Working
 
