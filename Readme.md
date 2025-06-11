@@ -100,6 +100,8 @@ bs -ast -token <file.bs>
 
 ### ✨ Core Syntax and Semantics
 
+[View full syntax guide](docs/SYNTAX.md)
+
 - `sigma`: Declare a variable like a sigma male 🧠 — because alpha is too mainstream.
 - `cook`: Function declaration — chef mode activated 🍳.
 - `gyatt()`: Call a function with max rizz 👑 — ultimate slay.
