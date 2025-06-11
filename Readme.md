@@ -2,11 +2,15 @@
 
 **BSLang** is a Gen-Z inspired toy programming language designed to be expressive, fun, and functionally capable. With meme-driven syntax and semantics, it aims to make programming both entertaining and educational. You might be thinking why to create a language like this:
 
-> "And behold, the Language was made — not that it should merely run, but that it should Vibe..." ~GenZ Bible 1:1
+> "And behold, the Language was made — not that it should merely run, but that it should *Vibe*..." 
+> – *BS Scrolls, Chapter 1: Verse 1*
 
 <p align="center">
 <img src="logo-bs-lang-main.png" alt="BSLang Logo" />
 </p>
+
+> Because programming should be expressive. It should slay. It should yeet
+> – *BS Scrolls, Chapter 9: Verse 9*
 
 ## 🚀 Installation Guide for BS-Lang
 
@@ -129,7 +133,8 @@ bs -ast -token <file.bs>
 
 Yes... **in theory**. Like that group project teammate who _could_ do everything, but you know they won't 😩
 
-> "BSLang is Turing complete in theory, but in practice she's still working on herself 💅🛠️."
+> "BSLang is Turing complete in theory, but in practice she's still working on herself 💅🛠️." 
+> – *BS Scrolls, Chapter 8: Verse 8*
 
 So yes — we checked the nerdy boxes ✅ but if you try to build Skynet with it right now, she might just `yeet` herself.
 
@@ -196,7 +201,8 @@ BSLang is totally open source — because gatekeeping isn’t slay. Contribution
 - Got a feature idea? Let’s manifest it together.
 - Wanna vibe with the code? Fork it, slay it, PR it.
 
-> "Delulu is for the community, by the community — let's go full frfr."
+> "Delulu is for the community, by the community — let's go full frfr." 
+> – *BS Scrolls, Chapter 3: Verse 11*
 
 ---
 
@@ -204,4 +210,5 @@ BSLang is totally open source — because gatekeeping isn’t slay. Contribution
 
 MIT License — free to slay, remix, and ship.
 
-> "Sometimes you gotta go delulu to go Turing complete byotch."
+> "Sometimes you gotta go delulu to go Turing complete byotch." 
+> – *BS Scrolls, Chapter 6: Verse 9*
