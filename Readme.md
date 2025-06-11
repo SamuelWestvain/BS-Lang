@@ -6,14 +6,67 @@
 <img src="logo-bs-lang-main.png" alt="BSLang Logo" />
 </p>
 
+## 🚀 Installation Guide for BS-Lang
 
-## Installation
+### 🐧 Linux
 
-Clone github repo in your local system
+1. **Clone the GitHub repo:**
 
 ```bash
 git clone https://github.com/AnomitraSarkar/BS-Lang.git
+cd BS-Lang/SCRIPTS
 ```
+
+Or just download the executable `bs` file manually into the `SCRIPTS/` directory.
+
+2. **Make it executable:**
+
+```bash
+chmod +x bs
+```
+
+3. **(Optional) Rename it to `bs`:**
+
+```bash
+mv bs bs
+```
+
+4. **Move it to a system path:**
+
+```bash
+sudo mv ./bs /usr/local/bin/bs
+```
+
+Now you can run `bs` from anywhere:
+
+```bash
+bs
+```
+
+---
+
+### 🪟 Windows
+
+1. **Download the `bs.exe` file** from the `SCRIPTS/` folder in the repo or a release.
+
+2. **(Optional) Rename the file to `bs.exe`** for simplicity.
+
+3. **Add the file's directory to your PATH:**
+
+- Press **Win + R**, type `sysdm.cpl`, press Enter.
+- Go to **Advanced** → **Environment Variables**.
+- Under **System variables**, find and select `Path`, then click **Edit**.
+- Click **New**, and enter the full path to the folder containing `bs.exe`.
+
+4. **Test it in a new terminal:**
+
+```cmd
+bs
+```
+
+<b><i>Select the executable distribution according to the platform and version : bs-<version>-<platform>-<architecture> </i></b>
+
+### gotta segregate for linux windows and mac(comming soon)
 
 Set Path to environment variables (relative to installation path)
 
