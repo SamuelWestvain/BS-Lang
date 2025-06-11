@@ -6,7 +6,7 @@
 > – _BS Scrolls, Chapter 1: Verse 1_
 
 <p align="center">
-<img src="logo-bs-lang-main.png" alt="BSLang Logo" />
+<img src="../logo-bs-lang-main.png" alt="BSLang Logo" />
 </p>
 
 > Because programming should be expressive. It should slay. It should yeet
