@@ -28,6 +28,9 @@ def run_lava_code(code, show_tokens=False, show_ast=False, *inputs):
     input_manager.input_queue = list(inputs)
     
     env = Environment()
+    # Override built-in gimme to use our input manager
+    env.set('gimme', ('BUILTIN_FUNCTION', 'gimme', web_gimme), update_existing=True)
+    
     old_stdout = sys.stdout
     old_stderr = sys.stderr
     sys.stdout = buffer = io.StringIO()
@@ -69,6 +72,13 @@ def run_lava_code(code, show_tokens=False, show_ast=False, *inputs):
     
     return "\n".join(output_parts)
 
+def web_gimme(args):
+    """Web version of gimme that uses input manager"""
+    prompt = args[0] if len(args) > 0 else ""
+    # Print prompt to captured output
+    print(prompt, end='', flush=True)
+    return input_manager.get_input()
+
 def download_code(code):
     """Create a temporary .lava file for download"""
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".lava")
@@ -79,20 +89,6 @@ def download_code(code):
     except Exception as e:
         os.unlink(temp_file.name)
         raise e
-
-# Update the interpreter.py to use input_manager
-# Add this to your interpreter.py (in the eval_expression function)
-"""
-elif etype == 'CALL':
-    func_name = expr[1]
-    args = expr[2]
-    if func_name == 'gimme':
-        if not args:
-            return input_manager.get_input()
-        prompt = eval_expression(args[0], env)
-        return input_manager.get_input(prompt)
-    return call_function(func_name, args, env)
-"""
 
 EXAMPLES = [
     {
@@ -119,22 +115,27 @@ hawk_tuah("Hello, " + name)"""
 hawk_tuah(gyatt())"""
     },
     {
-        "name": "Calculator",
-        "code": """sigma a = gimme("Enter first number: ")
-sigma b = gimme("Enter second number: ")
-sigma op = gimme("Enter operation (+, -, *, /): ")
+        "name": "Array and Dynamic Typecast Examples",
+        "code": """squad x = [10, "20", 30, 40, 50]
+squad arr = x
 
-rizz_check op == "+" {
-    hawk_tuah(a + b)
-} nah_fam rizz_check op == "-" {
-    hawk_tuah(a - b)
-} nah_fam rizz_check op == "*" {
-    hawk_tuah(a * b)
-} nah_fam rizz_check op == "/" {
-    hawk_tuah(a / b)
-} nah_fam {
-    hawk_tuah("Invalid operation")
-}"""
+on_read{// Access last element}
+hawk_tuah(arr[-1]+2)  
+
+on_read{// Access second last element}
+hawk_tuah(arr[-2]+2)  
+
+on_read{// Assign using negative index}
+sigma y = gimme("Enter the number: ")
+arr[-1] = y
+hawk_tuah(arr[4]*2)   
+
+tweet input_str = gimme("Enter a number: ")
+tweet num = input_str
+hawk_tuah("Double: " + (num * 2))
+
+hawk_tuah(arr)
+hawk_tuah(x)"""
     }
 ]
 
@@ -182,8 +183,13 @@ with gr.Blocks(css=custom_css, title="🔥 LAVA Playground") as app:
                     show_tokens = gr.Checkbox(label="Show Tokens", value=False)
                     show_ast = gr.Checkbox(label="Show AST", value=False)
             
-            # Dynamic input fields will be added here by the analysis
-            input_fields = []
+            # Dynamic input fields container
+            input_group = gr.Group(elem_classes="input-group")
+            with input_group:
+                gr.Markdown("<div class='input-title'>Program Inputs (for gimme function)</div>")
+                input_fields = []
+                for i in range(5):  # Create 5 input fields (initially hidden)
+                    input_fields.append(gr.Textbox(visible=False, label=f"Input {i+1}"))
             
             output = gr.Textbox(
                 label="Execution Output",
@@ -219,18 +225,17 @@ with gr.Blocks(css=custom_css, title="🔥 LAVA Playground") as app:
             ast = parse(tokens)
             input_count = count_inputs(ast)
             
-            # Create input components
-            inputs = []
-            for i in range(input_count):
-                inputs.append(gr.Textbox(label=f"Input {i+1}", visible=True))
+            # Create input components state
+            inputs_state = []
+            for i in range(5):
+                if i < input_count:
+                    inputs_state.append(gr.Textbox(visible=True, label=f"Input {i+1}"))
+                else:
+                    inputs_state.append(gr.Textbox(visible=False))
             
-            # Pad with hidden inputs if needed
-            while len(inputs) < 5:  # Show at least 5 input fields
-                inputs.append(gr.Textbox(visible=False))
-            
-            return inputs
-        except:
-            # Return default hidden inputs if analysis fails
+            return inputs_state
+        except Exception as e:
+            # Return all hidden inputs if analysis fails
             return [gr.Textbox(visible=False) for _ in range(5)]
     
     def count_inputs(ast):
@@ -245,18 +250,25 @@ with gr.Blocks(css=custom_css, title="🔥 LAVA Playground") as app:
             return 0
         
         count = 0
+        # Count gimme calls in expressions
         if node[0] == 'CALL' and node[1] == 'gimme':
             count += 1
         
+        # Count gimme calls in variable declarations
+        if node[0] in ['SIGMA_DECL', 'TWEET_DECL'] and node[2][0] == 'CALL' and node[2][1] == 'gimme':
+            count += 1
+        
+        # Recursively check children
         for item in node:
-            count += _count_inputs_in_node(item)
+            if isinstance(item, (list, tuple)):
+                count += _count_inputs_in_node(item)
         
         return count
     
     code_input.change(
         fn=analyze_code,
         inputs=code_input,
-        outputs=[input_fields]
+        outputs=input_fields
     )
     
     run_btn.click(
@@ -278,4 +290,4 @@ with gr.Blocks(css=custom_css, title="🔥 LAVA Playground") as app:
     )
 
 if __name__ == "__main__":
-    app.launch(share=False)
+    app.launch(share=True)

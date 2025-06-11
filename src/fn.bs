@@ -1,0 +1,8 @@
+cook add(a, b){
+    sigma sum = a + b
+    yeet sum
+}
+
+sigma a = 5
+sigma b = 10
+hawk_tuah(add(a, b))

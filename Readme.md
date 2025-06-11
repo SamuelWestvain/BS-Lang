@@ -158,10 +158,9 @@ So yes — we checked the nerdy boxes ✅ but if you try to build Skynet with it
 - Dynamic arrays and nested structures
 - `len(arr)` support and iteration
 
-### ❗ First-Class Functions
+### ❗ First-Class Functions Extensions
 
-- Passing functions as arguments (yes, like actual functions 😭)
-- Anonymous functions (bonus points for ✨ aesthetic syntax ✨)
+- Anonymous functions (bonus points for ✨ aesthetic syntax ✨) like Lambda function
 
 ### ❗ Input/Output
 
