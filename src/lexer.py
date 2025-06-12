@@ -14,6 +14,7 @@ token_specification = [
     ('LBRACKET',   r'\['),
     ('RBRACKET',   r'\]'),
     ('COMMA',      r','),
+    ('DOT',        r'\.'),  # Added for method calls
     ('IDENTIFIER', r'[a-zA-Z_][a-zA-Z0-9_]*'),
     ('NEWLINE',    r'\n'),
     ('SKIP',       r'[ \t]+'),
@@ -43,7 +44,7 @@ keywords = {
     'panik': 'PANIK',
     'till': 'TILL',
     'to': 'TO',
-    # Removed gimme from keywords - treat as regular identifier
+    'scooch': 'SCOOCH',  # Added for list method
 }
 
 def tokenize(code):

@@ -1,4 +1,9 @@
 import copy
+import os
+import csv
+
+MAX_RECURSION_DEPTH = 1000
+current_recursion_depth = 0
 
 class Environment:
     def __init__(self, parent=None):
@@ -7,6 +12,8 @@ class Environment:
         # Add built-in functions to global environment
         if parent is None:
             self.set('gimme', ('BUILTIN_FUNCTION', 'gimme', builtin_gimme))
+            self.set('scoop', ('BUILTIN_FUNCTION', 'scoop', builtin_scoop))
+            self.set('scooch', ('BUILTIN_FUNCTION', 'scooch', builtin_scooch))
 
     def get(self, name):
         if name in self.vars:
@@ -38,6 +45,44 @@ def builtin_gimme(args):
         return input(prompt)
     except EOFError:
         return ""  # Return empty string on EOF
+
+def builtin_scoop(args):
+    """Built-in file reading function"""
+    if len(args) != 1:
+        raise RuntimeError("scoop() takes exactly 1 argument (filename)")
+    
+    filename = args[0]
+    if not isinstance(filename, str):
+        raise RuntimeError("Filename must be a string")
+    
+    if not os.path.exists(filename):
+        raise RuntimeError(f"File not found: {filename}")
+    
+    try:
+        if filename.endswith('.csv'):
+            with open(filename, 'r') as f:
+                reader = csv.reader(f)
+                return [row for row in reader]
+        else:
+            with open(filename, 'r') as f:
+                return f.read()
+    except Exception as e:
+        raise RuntimeError(f"Error reading file: {str(e)}")
+
+def builtin_scooch(args):
+    """Append to squad and return new length"""
+    if len(args) < 1:
+        raise RuntimeError("scooch() requires at least 1 argument (squad)")
+    if len(args) > 2:
+        raise RuntimeError("scooch() takes at most 2 arguments (squad, [value])")
+    
+    squad = args[0]
+    if not isinstance(squad, list):
+        raise RuntimeError("First argument must be a squad")
+    
+    value = args[1] if len(args) > 1 else "nvm"
+    squad.append(value)
+    return len(squad)
 
 def is_array(value):
     return isinstance(value, list)
@@ -83,7 +128,7 @@ def eval_expression(expr, env):
     elif etype == 'NULL':
         return 'nvm'
     elif etype == 'UNDECIDED':
-        return 'delulu'
+        return float('inf')  # Represent delulu as infinity
     elif etype == 'IDENTIFIER':
         val = env.get(expr[1])
         return val
@@ -122,57 +167,75 @@ def eval_expression(expr, env):
         if isinstance(right, str) and right in ['slay', 'cap']:
             right = 1 if right == 'slay' else 0
         
-        if op == '+': 
-            return left + right
-        if op == '-': 
-            return left - right
-        if op == '*': 
-            return left * right
-        if op == '/': 
-            if right == 0:
-                raise RuntimeError("Division by zero")
-            return left / right
-        if op == '>': 
-            return 'slay' if left > right else 'cap'
-        if op == '<': 
-            return 'slay' if left < right else 'cap'
-        if op == '==': 
-            return 'slay' if left == right else 'cap'
-        if op == '!=': 
-            return 'slay' if left != right else 'cap'
-        if op == '<=': 
-            return 'slay' if left <= right else 'cap'
-        if op == '>=': 
-            return 'slay' if left >= right else 'cap'
+        try:
+            if op == '+': 
+                return left + right
+            if op == '-': 
+                return left - right
+            if op == '*': 
+                return left * right
+            if op == '/': 
+                if right == 0:
+                    raise RuntimeError("Division by zero")
+                return left / right
+            if op == '>': 
+                return 'slay' if left > right else 'cap'
+            if op == '<': 
+                return 'slay' if left < right else 'cap'
+            if op == '==': 
+                return 'slay' if left == right else 'cap'
+            if op == '!=': 
+                return 'slay' if left != right else 'cap'
+            if op == '<=': 
+                return 'slay' if left <= right else 'cap'
+            if op == '>=': 
+                return 'slay' if left >= right else 'cap'
+        except OverflowError:
+            return float('inf')
         raise RuntimeError(f"Unknown operator {op}")
     elif etype == 'CALL':
         func_name = expr[1]
         args = [eval_expression(arg, env) for arg in expr[2]]
         return call_function(func_name, args, env)
+    elif etype == 'METHOD_CALL':
+        obj_name = expr[1]
+        method_name = expr[2]
+        obj = env.get(obj_name)
+        args = [obj] + [eval_expression(arg, env) for arg in expr[3]]
+        return call_function(method_name, args, env)
     else:
         raise RuntimeError(f"Unknown expression type: {etype}")
     
 def call_function(name, args, env):
+    global current_recursion_depth
+    
     func = env.get(name)
     if not func:
         raise RuntimeError(f"Function '{name}' not found")
     
     if func[0] == 'FUNCTION':
-        _, func_name, params, body = func
-        func_env = Environment(parent=env)
+        current_recursion_depth += 1
+        if current_recursion_depth > MAX_RECURSION_DEPTH:
+            current_recursion_depth -= 1
+            raise RuntimeError("Stack overflow: too delulu")
         
-        # Bind parameters
-        if len(params) != len(args):
-            raise RuntimeError(f"Function '{name}' expects {len(params)} arguments, got {len(args)}")
-        for param, arg in zip(params, args):
-            func_env.set(param, arg)
-
         try:
+            _, func_name, params, body = func
+            func_env = Environment(parent=env)
+            
+            # Bind parameters
+            if len(params) != len(args):
+                raise RuntimeError(f"Function '{name}' expects {len(params)} arguments, got {len(args)}")
+            for param, arg in zip(params, args):
+                func_env.set(param, arg)
+
             for stmt in body:
                 exec_statement(stmt, func_env)
             return 'nvm'  # Default return value
         except ReturnValue as ret:
             return ret.value
+        finally:
+            current_recursion_depth -= 1
             
     elif func[0] == 'BUILTIN_FUNCTION':
         # Call built-in function
@@ -186,7 +249,12 @@ def exec_statement(stmt, env):
 
     if stype == 'PRINT':
         val = eval_expression(stmt[1], env)
-        print(val)
+        if isinstance(val, float) and val == float('inf'):
+            print("delulu")
+        elif isinstance(val, float) and val == -float('inf'):
+            print("-delulu")
+        else:
+            print(val)
         
     elif stype == 'CALL_STMT':
         func_name = stmt[1]

@@ -212,3 +212,5 @@ MIT License — free to slay, remix, and ship.
 > – *BS Scrolls, Chapter 6: Verse 9*
 
 <b> PS: If you encounter an error — To bad, So sad! </b>
+
+Built as pre-release of LAVAC-Script 

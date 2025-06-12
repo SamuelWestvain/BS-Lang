@@ -33,7 +33,22 @@ def parse_primary():
     elif token[0] == 'STRING':
         return ('STRING', token[1])
     elif token[0] == 'IDENTIFIER':
-        if peek()[0] == 'LPAREN':
+        if peek()[0] == 'DOT':
+            consume('DOT')
+            method = consume('IDENTIFIER')[1]
+            if method != 'scooch':
+                raise SyntaxError(f"Unknown method '{method}'")
+            consume('LPAREN')
+            method_args = []
+            while peek()[0] != 'RPAREN':
+                method_args.append(parse_expression())
+                if peek()[0] == 'COMMA':
+                    consume('COMMA')
+                else:
+                    break
+            consume('RPAREN')
+            return ('METHOD_CALL', token[1], 'scooch', method_args)
+        elif peek()[0] == 'LPAREN':
             func_name = token[1]
             consume('LPAREN')
             args = []
