@@ -9,7 +9,7 @@
 <img src="logo-bs-lang-main.png" alt="BSLang Logo" />
 </p>
 
-> Because programming should be expressive. It should slay. It should yeet
+> Because programming should be **expressive**. It should **slay**. It should **yeet**
 > – *BS Scrolls, Chapter 9: Verse 9*
 
 ## 🚀 Installation Guide for BS-Lang
