@@ -1,0 +1,6 @@
+sus {
+    sigma a = 10/1
+}
+panik {
+    hawk_tuah("Caught an error!")  
+}

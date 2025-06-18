@@ -9,3 +9,5 @@ count = "10"
 hawk_tuah(count * 2) 
 
 on_read{type casting in a dynamic fashion}
+
+hawk_tuah(scoop("demo.bs"))
