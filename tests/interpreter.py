@@ -288,6 +288,23 @@ def exec_statement(stmt, env):
         
         env.set(var_name, val)
         
+    elif stype == 'TRY_CATCH':
+        try_body = stmt[1]
+        catch_body = stmt[2]
+        
+        try:
+            # Execute try block
+            for s in try_body:
+                exec_statement(s, env)
+                
+        except Exception as e:
+            # Execute catch block on any error
+            for s in catch_body:
+                try:
+                    exec_statement(s, env)
+                except Exception as nested_e:
+                    print(f"Error in panik block: {nested_e}")
+        
     elif stype == 'TWEET_DECL':  # String variable declaration
         _, var_name, expr = stmt
         val = eval_expression(expr, env)
