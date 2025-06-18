@@ -115,6 +115,8 @@ bs -ast -token <file.bs>
 - `frfr`, `maybe`, `nah`: Logic squad — AND, OR, and a full 180 🌀.
 - `nvm`, `delulu`, `sus`: Null, undefined, and the imposter among us 🤨.
 - `on_read{...}`: Comments with ✨aesthetic✨ — journaling your code.
+- `scoop("<filename>")`: Read the entire File 📂 using scoop function.
+- `sus{...} panik{...}`: Run this block when in doubt 😵‍💫.
 
 ### 🧠 Tokenization & Lexing
 
@@ -164,7 +166,7 @@ So yes — we checked the nerdy boxes ✅ but if you try to build Skynet with it
 
 ### ❗ Input/Output
 
-- File I/O (optional but 🔥)
+- File I/O but only O missing (optional but 🔥)
 
 ### ❗ Interpreter Runtime Buff
 
@@ -172,16 +174,14 @@ So yes — we checked the nerdy boxes ✅ but if you try to build Skynet with it
 - Allow deep call stacks
 - Add tail call optimization (for the real nerds)
 
-### ❗ Error Handling (a.k.a. emotional support)
+### ❗ Null Error Handling (a.k.a. emotional support)
 
-- `panik` for try/catch semantics
-- Null-safe comparisons and default values
+- Null-safe comparisons and default values => Delulu
 
 ### ❗ Optional Vibes
 
 - `eval()` for runtime code gen (yes this is chaotic, we support it)
 - Garbage collection
-- REPL or live console (so you can vibe-test code live)
 
 ---
 
