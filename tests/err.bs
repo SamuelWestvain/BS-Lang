@@ -1,0 +1,6 @@
+sus {
+    sigma a = 10/0;  // Division by zero
+}
+panik {
+    hawk_tuah("Caught an error!")  // This will execute
+}

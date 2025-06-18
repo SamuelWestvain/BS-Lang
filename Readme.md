@@ -142,7 +142,7 @@ So yes — we checked the nerdy boxes ✅ but if you try to build Skynet with it
 
 ---
 
-## 🔧 Missing Functionalities for Practical Turing Completeness
+## 🔧 Missing Functionalities for Practical Completeness
 
 ### ❗ Standard Library (because vibes need functions)
 

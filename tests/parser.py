@@ -228,6 +228,24 @@ def parse_statement():
     if match('SKIBIDI'):
         return ('EXIT',)
     
+    if match('SUS'):
+        consume('LBRACE')
+        try_body = []
+        while peek()[0] != 'RBRACE' and peek()[0] != 'EOF':
+            try_body.append(parse_statement())
+        consume('RBRACE')
+        
+        # Parse panik block
+        if not match('PANIK'):
+            raise SyntaxError("Expected 'panik' after 'sus' block")
+        consume('LBRACE')
+        catch_body = []
+        while peek()[0] != 'RBRACE' and peek()[0] != 'EOF':
+            catch_body.append(parse_statement())
+        consume('RBRACE')
+        
+        return ('TRY_CATCH', try_body, catch_body)
+    
     raise SyntaxError(f"Unknown statement at token {peek()}")
 
 def parse_function():
